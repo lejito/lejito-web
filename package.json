@@ -1,0 +1,33 @@
+{
+  "name": "lejito-web",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A personal website for Lejito",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview"
+  },
+  "keywords": [
+    "personal website",
+    "portfolio",
+    "lejito"
+  ],
+  "author": "Lejito (Alejandro Córdoba Ríos)",
+  "license": "GPL-3.0-only",
+  "packageManager": "pnpm@10.26.2+sha512.0e308ff2005fc7410366f154f625f6631ab2b16b1d2e70238444dd6ae9d630a8482d92a451144debc492416896ed16f7b114a86ec68b8404b2443869e68ffda6",
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "astro": "^5.16.6",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^8.50.1",
+    "eslint": "^9.39.2",
+    "eslint-plugin-astro": "^1.5.0",
+    "prettier": "3.7.4",
+    "prettier-plugin-astro": "0.14.1"
+  }
+}
