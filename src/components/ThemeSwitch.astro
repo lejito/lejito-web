@@ -1,0 +1,96 @@
+---
+import SunIcon from "@components/icons/SunIcon.astro";
+import MoonIcon from "@components/icons/MoonIcon.astro";
+---
+
+<button
+  id="theme-toggle"
+  type="button"
+  aria-label="Cambiar tema"
+  class="relative flex items-center w-18 h-10 p-1 rounded-full hover:opacity-80 cursor-pointer transition-all duration-500"
+>
+  <div
+    id="icon-container"
+    class="flex items-center justify-center w-8 h-8 p-1 bg-white rounded-full shadow-md transition-transform duration-500 ease-in-out"
+  >
+    <div id="sun-icon" class="absolute transition-opacity duration-300 text-gray-800">
+      <SunIcon />
+    </div>
+    <div id="moon-icon" class="absolute transition-opacity duration-300 text-gray-800">
+      <MoonIcon />
+    </div>
+  </div>
+</button>
+
+<style>
+  #theme-toggle {
+    position: relative;
+  }
+
+  #theme-toggle::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: linear-gradient(to right, rgb(253 224 71), rgb(251 146 60));
+    opacity: 1;
+    transition: opacity 300ms ease-in-out;
+  }
+
+  #theme-toggle::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: linear-gradient(to right, rgb(96 165 250), rgb(99 102 241));
+    opacity: 0;
+    transition: opacity 300ms ease-in-out;
+  }
+
+  #icon-container {
+    position: relative;
+    z-index: 1;
+    transform: translateX(0);
+  }
+
+  #sun-icon {
+    opacity: 1;
+  }
+
+  #moon-icon {
+    opacity: 0;
+  }
+
+  :global([data-theme="dark"]) #theme-toggle::before {
+    opacity: 0;
+  }
+
+  :global([data-theme="dark"]) #theme-toggle::after {
+    opacity: 1;
+  }
+
+  :global([data-theme="dark"]) #sun-icon {
+    opacity: 0;
+  }
+
+  :global([data-theme="dark"]) #moon-icon {
+    opacity: 1;
+  }
+
+  :global([data-theme="dark"]) #icon-container {
+    transform: translateX(32px);
+  }
+</style>
+
+<script>
+  const themeToggle = document.getElementById("theme-toggle");
+  const html = document.documentElement;
+
+  themeToggle?.addEventListener("click", () => {
+    const currentTheme = html.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+
+    html.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+  });
+</script>

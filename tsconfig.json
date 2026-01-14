@@ -15,6 +15,15 @@
             "@layouts/*": [
                 "./src/layouts/*"
             ],
+            "@pages/*": [
+                "./src/pages/*"
+            ],
+            "@styles/*": [
+                "./src/styles/*"
+            ],
+            "@images/*": [
+                "./src/images/*"
+            ],
         },
         "verbatimModuleSyntax": true,
     }

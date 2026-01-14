@@ -1,1 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
 @import "tailwindcss";
+
+@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+body {
+  font-family: "Rubik", sans-serif;
+  color: #333333;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse at left bottom,
+    #b2cfe5 0%,
+    #ffffff 20%,
+    #ffffff 50%,
+    #ffffff 50%,
+    #efc9c7 100%
+  );
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse at left bottom,
+    #212b3b 0%,
+    #1a212f 20%,
+    #1a212f 50%,
+    #1a212f 70%,
+    #1f1313 100%
+  );
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+
+[data-theme="dark"] body {
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] body::before {
+  opacity: 0;
+}
+
+[data-theme="dark"] body::after {
+  opacity: 1;
+}
