@@ -1,0 +1,26 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { Image } from "astro:assets";
+import notFoundImg from "@images/404-not-found.webp";
+---
+
+<Layout title="Error 404">
+  <h2 class="text-center text-2xl font-bold">Página no encontrada</h2>
+
+  <div class="mt-8 mb-8 flex justify-center">
+    <Image
+      src={notFoundImg}
+      alt="Página no encontrada"
+      class="max-h-80 w-auto rounded-lg shadow-md block"
+    />
+  </div>
+
+  <div class="text-center mt-4">
+    <a
+      class="cursor-pointer rounded-lg bg-custom-primary px-6 py-3 text-custom-light transition hover:opacity-90"
+      href="/"
+    >
+      Volver al inicio
+    </a>
+  </div>
+</Layout>

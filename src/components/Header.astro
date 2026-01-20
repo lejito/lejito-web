@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import lejitoLogo from "@images/lejito-logo.svg";
 import SocialLink from "@components/SocialLink.astro";
 import LinkedinIcon from "@components/icons/LinkedinIcon.astro";
@@ -6,28 +7,49 @@ import GithubIcon from "@components/icons/GithubIcon.astro";
 import InstagramIcon from "@components/icons/InstagramIcon.astro";
 import TwitterIcon from "@components/icons/TwitterIcon.astro";
 import ThemeSwitch from "@components/ThemeSwitch.astro";
+import MenuIcon from "./icons/MenuIcon.astro";
 ---
 
 <header
-  class="fixed top-0 left-0 w-full inset-x-0 z-100 h-20 flex items-center justify-between px-8 py-4 shadow-md backdrop-blur"
+  class="fixed top-0 left-0 w-full inset-x-0 z-50 h-20 bg-white/95 dark:bg-gray-800/95 flex items-center justify-between transition px-4 md:px-8 py-4 shadow-md backdrop-blur"
 >
-  <a href="/" class="flex items-center gap-4">
-    <img src={lejitoLogo.src} alt="Lejito Logo" class="h-16 w-16 drop-shadow-xs drop-shadow-gray-700 transition-all duration-300" />
-    <div class="relative flex items-center transition-colors duration-500">
-      <div class="flex flex-row items-center gap-2 text-shadow-xs">
-        <h1 class="text-lg font-bold leading-tight transition-colors duration-500">Alejandro Cordoba Rios</h1>
-        <span class="text-xs font-medium opacity-70 leading-none transition-colors duration-500">(@lejito)</span>
+  <!-- Logo -->
+  <a href="/" class="flex items-center gap-1 xl:gap-4">
+    <Image
+      src={lejitoLogo}
+      alt="Lejito Logo"
+      class="h-12 w-12 md:h-16 md:w-16 drop-shadow-xs drop-shadow-gray-700 transition"
+    />
+    <div class="relative flex items-center">
+      <div class="flex flex-row items-center gap-1 md:gap-2 text-shadow-xs">
+        <h1
+          class="text-sm xl:text-base font-bold text-nowrap leading-tight"
+        >
+          Alejandro Cordoba Rios
+        </h1>
+        <span
+          class="hidden xs:inline text-xs font-medium text-nowrap opacity-70 leading-none"
+          >(@lejito)</span
+        >
       </div>
     </div>
   </a>
-  <nav class="flex items-center gap-10">
-    <a href="/">Inicio</a>
-    <a href="/sobre-mi">Sobre mí</a>
-    <a href="/proyectos">Proyectos</a>
-    <a href="/contacto">Contacto</a>
+
+  <!-- Desktop Navigation -->
+  <nav
+    class="hidden lg:flex items-center gap-6 xl:gap-10 text-nowrap text-sm xl:text-base"
+  >
+    <a href="/" class="hover:opacity-70 transition-opacity">Inicio</a>
+    <a href="/sobre-mi" class="hover:opacity-70 transition-opacity">Sobre mí</a>
+    <a href="/proyectos" class="hover:opacity-70 transition-opacity"
+      >Proyectos</a
+    >
+    <a href="/contacto" class="hover:opacity-70 transition-opacity">Contacto</a>
   </nav>
-  <div class="flex items-center gap-10">
-    <div class="flex items-center gap-6">
+
+  <!-- Desktop Social Links & Theme Switch -->
+  <div class="hidden lg:flex items-center gap-6 xl:gap-10">
+    <div class="flex items-center gap-4 lg:gap-6">
       <SocialLink href="https://linkedin.com/in/alejocrrs" label="LinkedIn">
         <LinkedinIcon />
       </SocialLink>
@@ -47,4 +69,90 @@ import ThemeSwitch from "@components/ThemeSwitch.astro";
 
     <ThemeSwitch />
   </div>
+
+  <!-- Mobile Menu Button -->
+  <button
+    id="mobile-menu-button"
+    class="lg:hidden flex flex-col gap-1.5 p-2"
+    aria-label="Menú"
+  >
+    <MenuIcon size="28" />
+  </button>
 </header>
+
+<!-- Mobile Menu -->
+<div
+  id="mobile-menu"
+  class="fixed top-20 left-0 w-full bg-white/95 dark:bg-gray-800/95 backdrop-blur shadow-lg lg:hidden transform -translate-y-full transition z-40"
+>
+  <div class="flex flex-col p-6 gap-6">
+    <!-- Mobile Navigation -->
+    <nav class="flex flex-col gap-4">
+      <a href="/" class="text-lg hover:opacity-70 transition-opacity">Inicio</a>
+      <a href="/sobre-mi" class="text-lg hover:opacity-70 transition-opacity"
+        >Sobre mí</a
+      >
+      <a href="/proyectos" class="text-lg hover:opacity-70 transition-opacity"
+        >Proyectos</a
+      >
+      <a href="/contacto" class="text-lg hover:opacity-70 transition-opacity"
+        >Contacto</a
+      >
+    </nav>
+
+    <hr class="border-gray-300 dark:border-gray-700 transition" />
+
+    <!-- Mobile Social Links -->
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-6">
+        <SocialLink href="https://linkedin.com/in/alejocrrs" label="LinkedIn">
+          <LinkedinIcon />
+        </SocialLink>
+
+        <SocialLink href="https://github.com/lejito" label="GitHub">
+          <GithubIcon />
+        </SocialLink>
+
+        <SocialLink href="https://instagram.com/alejocrrs" label="Instagram">
+          <InstagramIcon />
+        </SocialLink>
+
+        <SocialLink href="https://x.com/alejocrrs" label="X (Twitter)">
+          <TwitterIcon />
+        </SocialLink>
+      </div>
+      <ThemeSwitch />
+    </div>
+  </div>
+</div>
+
+<script>
+  const mobileMenuButton = document.getElementById("mobile-menu-button");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  mobileMenuButton?.addEventListener("click", () => {
+    const isOpen = !mobileMenu?.classList.contains("-translate-y-full");
+
+    if (isOpen) {
+      mobileMenu?.classList.add("-translate-y-full");
+    } else {
+      mobileMenu?.classList.remove("-translate-y-full");
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    if (
+      !mobileMenu?.contains(e.target as Node) &&
+      !mobileMenuButton?.contains(e.target as Node) &&
+      !mobileMenu?.classList.contains("-translate-y-full")
+    ) {
+      mobileMenu?.classList.add("-translate-y-full");
+    }
+  });
+
+  mobileMenu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      mobileMenu?.classList.add("-translate-y-full");
+    });
+  });
+</script>

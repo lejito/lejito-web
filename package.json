@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "private": true,
-  "description": "A personal website for Lejito (Alejandro Córdoba Ríos)",
+  "description": "A personal website for Lejito (Alejandro Cordoba Rios)",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "astro dev",
@@ -16,7 +16,7 @@
     "lejito",
     "alejandro córdoba ríos"
   ],
-  "author": "Lejito (Alejandro Córdoba Ríos)",
+  "author": "Lejito (Alejandro Cordoba Rios)",
   "license": "GPL-3.0-only",
   "packageManager": "pnpm@10.28.0+sha512.05df71d1421f21399e053fde567cea34d446fa02c76571441bfc1c7956e98e363088982d940465fd34480d4d90a0668bc12362f8aa88000a64e83d0b0e47be48",
   "dependencies": {

@@ -2,14 +2,43 @@
 
 @import "tailwindcss";
 
-@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-display: "Rubik", sans-serif;
+
+  --breakpoint-xs: 24rem;
+
+  --color-custom-primary: #145b94;
+  --color-custom-dark: #0c0910;
+  --color-custom-light: #f0f2f6;
+  --color-custom-gray: #5d4f6f;
+  --color-custom-success: #609c0c;
+  --color-custom-warning: #eeb558;
+  --color-custom-danger: #c5261b;
+  --color-custom-info: #07a79f;
+  --color-custom-violet: #a393bf;
+  --color-custom-pink: #b9379b;
+
+  --color-custom-primary-dark: #145b94;
+}
 
 body {
   font-family: "Rubik", sans-serif;
-  color: #333333;
   margin: 0;
   padding: 0;
   position: relative;
+}
+
+:root {
+  --default-transition-duration: 300ms;
+  --default-transition-timing: ease-in-out;
+}
+
+/* Apply default transition timing only to elements that opt-in via Tailwind's transition classes */
+[class*="transition"], [class^="transition"] {
+  transition-duration: var(--default-transition-duration);
+  transition-timing-function: var(--default-transition-timing);
 }
 
 body::before {
@@ -29,7 +58,7 @@ body::before {
     #efc9c7 100%
   );
   opacity: 1;
-  transition: opacity 300ms ease-in-out;
+  transition: opacity var(--default-transition-duration) var(--default-transition-timing);
 }
 
 body::after {
@@ -46,20 +75,20 @@ body::after {
     #1a212f 20%,
     #1a212f 50%,
     #1a212f 70%,
-    #1f1313 100%
+    #231717 100%
   );
   opacity: 0;
-  transition: opacity 300ms ease-in-out;
+  transition: opacity var(--default-transition-duration) var(--default-transition-timing);
 }
 
-[data-theme="dark"] body {
+.dark body {
   color: #e0e0e0;
 }
 
-[data-theme="dark"] body::before {
+.dark body::before {
   opacity: 0;
 }
 
-[data-theme="dark"] body::after {
+.dark body::after {
   opacity: 1;
 }

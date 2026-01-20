@@ -1,14 +1,17 @@
 ---
 import Layout from "@layouts/Layout.astro";
-import enConstruccion from "@images/en-construccion.jpeg";
+import { Image } from "astro:assets";
+import enConstruccionImg from "@images/en-construccion.webp";
 ---
 
 <Layout>
-  <h2 class="text-center text-2xl font-bold">Próximamente...</h2>
+  <h2 class="text-center text-2xl font-bold transition">Próximamente...</h2>
 
-  <img
-    src={enConstruccion.src}
-    alt="Página en construcción"
-    class="mt-8 rounded-lg shadow-md max-w-full h-80 mx-auto"
-  />
+  <div class="mt-8 flex justify-center">
+    <Image
+      src={enConstruccionImg}
+      alt="Página en construcción"
+      class="max-h-80 w-auto rounded-lg shadow-md block"
+    />
+  </div>
 </Layout>

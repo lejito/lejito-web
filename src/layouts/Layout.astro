@@ -11,11 +11,28 @@ interface Props {
 }
 
 const {
-  title = "Portafolio: Alejandro Cordoba Rios (@lejito)",
-  description = "Soy un Ingeniero de Sistemas y Desarrollador Web apasionado por la tecnología y la innovación. Vivo en Medellín, Colombia.",
+  title,
+  description,
   image = "/og-image.jpg",
   keywords = "alejandro cordoba rios, lejito, portafolio, desarrollo web, ingeniero de sistemas, nodejs, react, nextjs, angular, astro, medellin, colombia",
 } = Astro.props;
+
+const siteOwner = "Alejandro Cordoba Rios (@lejito)";
+const defaultTitle = `Portafolio: ${siteOwner}`;
+const pageTitle = title ? `${title} | ${siteOwner}` : defaultTitle;
+
+// Calcular mi edad
+const birthDate = new Date("2003-05-27");
+const today = new Date();
+let age = today.getFullYear() - birthDate.getFullYear();
+const monthDiff = today.getMonth() - birthDate.getMonth();
+if (monthDiff < 0 || (monthDiff === 0 && today.getDate() <= birthDate.getDate())) {
+  age -= 1;
+}
+
+const pageDescription = description
+  ? description
+  : `Mi nombre es Alejandro Cordoba Rios y tengo ${age} años. Soy un Ingeniero de Sistemas y Desarrollador Web apasionado por la tecnología y la innovación. Vivo en Medellín, Colombia.`;
 
 const canonicalURL = Astro.site
   ? new URL(Astro.url.pathname, Astro.site).href
@@ -31,33 +48,37 @@ const canonicalURL = Astro.site
         (window.matchMedia("(prefers-color-scheme: dark)").matches
           ? "dark"
           : "light");
-      document.documentElement.setAttribute("data-theme", theme);
+      document.documentElement.classList.add(theme);
     </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
 
-    <title>{title}</title>
-    <meta name="description" content={description} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
     <meta name="keywords" content={keywords} />
     <meta name="author" content="Alejandro" />
     <link rel="canonical" href={canonicalURL} />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
     <meta property="og:image" content={new URL(image, Astro.url)} />
     <meta property="og:locale" content="es_ES" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={canonicalURL} />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
     <meta name="twitter:image" content={new URL(image, Astro.url)} />
 
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Lejito" />
+    <link rel="manifest" href="/site.webmanifest" />
 
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#ffffff" />
