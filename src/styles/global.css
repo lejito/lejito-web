@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+@import "@fontsource-variable/rubik";
 
 @import "tailwindcss";
 
@@ -20,7 +20,7 @@
   --color-custom-violet: #a393bf;
   --color-custom-pink: #b9379b;
 
-  --color-custom-primary-dark: #145b94;
+  --color-custom-primary-dark: #1e7fc7;
 }
 
 body {

@@ -8,6 +8,16 @@ import InstagramIcon from "@components/icons/InstagramIcon.astro";
 import TwitterIcon from "@components/icons/TwitterIcon.astro";
 import ThemeSwitch from "@components/ThemeSwitch.astro";
 import MenuIcon from "./icons/MenuIcon.astro";
+import { SOCIAL_LINKS, NAV_LINKS } from "@config/site";
+
+const iconMap = {
+  linkedin: LinkedinIcon,
+  github: GithubIcon,
+  instagram: InstagramIcon,
+  twitter: TwitterIcon,
+} as const;
+
+const currentPath = Astro.url.pathname;
 ---
 
 <header
@@ -18,17 +28,16 @@ import MenuIcon from "./icons/MenuIcon.astro";
     <Image
       src={lejitoLogo}
       alt="Lejito Logo"
+      fetchpriority="high"
+      loading="eager"
       class="h-12 w-12 md:h-16 md:w-16 drop-shadow-xs drop-shadow-gray-700 transition"
     />
     <div class="relative flex items-center">
       <div class="flex flex-row items-center gap-1 md:gap-2 text-shadow-xs">
-        <h1
-          class="text-sm xl:text-base font-bold text-nowrap leading-tight"
-        >
+        <h1 class="text-sm xl:text-base font-bold text-nowrap leading-tight">
           Alejandro Cordoba Rios
         </h1>
-        <span
-          class="hidden xs:inline text-xs font-medium text-nowrap opacity-70 leading-none"
+        <span class="hidden xs:inline text-xs font-medium text-nowrap opacity-70 leading-none"
           >(@lejito)</span
         >
       </div>
@@ -39,32 +48,32 @@ import MenuIcon from "./icons/MenuIcon.astro";
   <nav
     class="hidden lg:flex items-center gap-6 xl:gap-10 text-nowrap text-sm xl:text-base"
   >
-    <a href="/" class="hover:opacity-70 transition-opacity">Inicio</a>
-    <a href="/sobre-mi" class="hover:opacity-70 transition-opacity">Sobre mí</a>
-    <a href="/proyectos" class="hover:opacity-70 transition-opacity"
-      >Proyectos</a
-    >
-    <a href="/contacto" class="hover:opacity-70 transition-opacity">Contacto</a>
+    {
+      NAV_LINKS.map(({ href, label }) => (
+        <a
+          href={href}
+          class="hover:opacity-70 transition-opacity"
+          aria-current={currentPath === href ? "page" : undefined}
+        >
+          {label}
+        </a>
+      ))
+    }
   </nav>
 
   <!-- Desktop Social Links & Theme Switch -->
   <div class="hidden lg:flex items-center gap-6 xl:gap-10">
     <div class="flex items-center gap-4 lg:gap-6">
-      <SocialLink href="https://linkedin.com/in/alejocrrs" label="LinkedIn">
-        <LinkedinIcon />
-      </SocialLink>
-
-      <SocialLink href="https://github.com/lejito" label="GitHub">
-        <GithubIcon />
-      </SocialLink>
-
-      <SocialLink href="https://instagram.com/alejocrrs" label="Instagram">
-        <InstagramIcon />
-      </SocialLink>
-
-      <SocialLink href="https://x.com/alejocrrs" label="X (Twitter)">
-        <TwitterIcon />
-      </SocialLink>
+      {
+        SOCIAL_LINKS.map(({ href, label, icon }) => {
+          const Icon = iconMap[icon];
+          return (
+            <SocialLink href={href} label={label}>
+              <Icon />
+            </SocialLink>
+          );
+        })
+      }
     </div>
 
     <ThemeSwitch />
@@ -75,6 +84,8 @@ import MenuIcon from "./icons/MenuIcon.astro";
     id="mobile-menu-button"
     class="lg:hidden flex flex-col gap-1.5 p-2"
     aria-label="Menú"
+    aria-expanded="false"
+    aria-controls="mobile-menu"
   >
     <MenuIcon size="28" />
   </button>
@@ -88,16 +99,17 @@ import MenuIcon from "./icons/MenuIcon.astro";
   <div class="flex flex-col p-6 gap-6">
     <!-- Mobile Navigation -->
     <nav class="flex flex-col gap-4">
-      <a href="/" class="text-lg hover:opacity-70 transition-opacity">Inicio</a>
-      <a href="/sobre-mi" class="text-lg hover:opacity-70 transition-opacity"
-        >Sobre mí</a
-      >
-      <a href="/proyectos" class="text-lg hover:opacity-70 transition-opacity"
-        >Proyectos</a
-      >
-      <a href="/contacto" class="text-lg hover:opacity-70 transition-opacity"
-        >Contacto</a
-      >
+      {
+        NAV_LINKS.map(({ href, label }) => (
+          <a
+            href={href}
+            class="text-lg hover:opacity-70 transition-opacity"
+            aria-current={currentPath === href ? "page" : undefined}
+          >
+            {label}
+          </a>
+        ))
+      }
     </nav>
 
     <hr class="border-gray-300 dark:border-gray-700 transition" />
@@ -105,21 +117,16 @@ import MenuIcon from "./icons/MenuIcon.astro";
     <!-- Mobile Social Links -->
     <div class="flex items-center justify-between">
       <div class="flex items-center gap-6">
-        <SocialLink href="https://linkedin.com/in/alejocrrs" label="LinkedIn">
-          <LinkedinIcon />
-        </SocialLink>
-
-        <SocialLink href="https://github.com/lejito" label="GitHub">
-          <GithubIcon />
-        </SocialLink>
-
-        <SocialLink href="https://instagram.com/alejocrrs" label="Instagram">
-          <InstagramIcon />
-        </SocialLink>
-
-        <SocialLink href="https://x.com/alejocrrs" label="X (Twitter)">
-          <TwitterIcon />
-        </SocialLink>
+        {
+          SOCIAL_LINKS.map(({ href, label, icon }) => {
+            const Icon = iconMap[icon];
+            return (
+              <SocialLink href={href} label={label}>
+                <Icon />
+              </SocialLink>
+            );
+          })
+        }
       </div>
       <ThemeSwitch />
     </div>
@@ -127,17 +134,23 @@ import MenuIcon from "./icons/MenuIcon.astro";
 </div>
 
 <script>
-  const mobileMenuButton = document.getElementById("mobile-menu-button");
+  const mobileMenuButton = document.getElementById(
+    "mobile-menu-button"
+  ) as HTMLButtonElement | null;
   const mobileMenu = document.getElementById("mobile-menu");
+
+  function setMenuOpen(open: boolean) {
+    if (open) {
+      mobileMenu?.classList.remove("-translate-y-full");
+    } else {
+      mobileMenu?.classList.add("-translate-y-full");
+    }
+    mobileMenuButton?.setAttribute("aria-expanded", String(open));
+  }
 
   mobileMenuButton?.addEventListener("click", () => {
     const isOpen = !mobileMenu?.classList.contains("-translate-y-full");
-
-    if (isOpen) {
-      mobileMenu?.classList.add("-translate-y-full");
-    } else {
-      mobileMenu?.classList.remove("-translate-y-full");
-    }
+    setMenuOpen(!isOpen);
   });
 
   document.addEventListener("click", (e) => {
@@ -146,13 +159,11 @@ import MenuIcon from "./icons/MenuIcon.astro";
       !mobileMenuButton?.contains(e.target as Node) &&
       !mobileMenu?.classList.contains("-translate-y-full")
     ) {
-      mobileMenu?.classList.add("-translate-y-full");
+      setMenuOpen(false);
     }
   });
 
   mobileMenu?.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => {
-      mobileMenu?.classList.add("-translate-y-full");
-    });
+    link.addEventListener("click", () => setMenuOpen(false));
   });
 </script>

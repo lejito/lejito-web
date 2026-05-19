@@ -5,10 +5,11 @@
   "private": true,
   "description": "A personal website for Lejito (Alejandro Cordoba Rios)",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "astro dev",
     "build": "astro check && astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "lint": "eslint . && prettier --check .",
+    "format": "prettier --write ."
   },
   "keywords": [
     "personal website",
@@ -21,6 +22,8 @@
   "packageManager": "pnpm@10.32.1",
   "dependencies": {
     "@astrojs/check": "^0.9.6",
+    "@astrojs/sitemap": "^3.7.2",
+    "@fontsource-variable/rubik": "^5.2.8",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "^5.16.6",
     "sharp": "^0.34.5",

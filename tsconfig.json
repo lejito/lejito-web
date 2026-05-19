@@ -24,6 +24,9 @@
             "@images/*": [
                 "./src/images/*"
             ],
+            "@config/*": [
+                "./src/config/*"
+            ],
         },
         "verbatimModuleSyntax": true,
     }
