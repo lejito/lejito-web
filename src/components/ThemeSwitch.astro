@@ -81,20 +81,16 @@ import MoonIcon from "@components/icons/MoonIcon.astro";
 </style>
 
 <script>
-  const themeToggles = document.querySelectorAll(".theme-toggle");
-  const html = document.documentElement;
-
-  themeToggles.forEach((toggle) => {
-    toggle.addEventListener("click", () => {
-      const currentTheme = html.classList.contains("dark") ? "dark" : "light";
-      const newTheme = currentTheme === "dark" ? "light" : "dark";
-
-      if (newTheme === "dark") {
-        html.classList.add("dark");
-      } else {
-        html.classList.remove("dark");
-      }
-      localStorage.setItem("theme", newTheme);
+  function setupThemeToggles() {
+    const html = document.documentElement;
+    document.querySelectorAll(".theme-toggle").forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        const newTheme = html.classList.contains("dark") ? "light" : "dark";
+        html.classList.toggle("dark", newTheme === "dark");
+        localStorage.setItem("theme", newTheme);
+      });
     });
-  });
+  }
+
+  document.addEventListener("astro:page-load", setupThemeToggles);
 </script>

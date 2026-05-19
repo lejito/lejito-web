@@ -134,36 +134,36 @@ const currentPath = Astro.url.pathname;
 </div>
 
 <script>
-  const mobileMenuButton = document.getElementById(
-    "mobile-menu-button"
-  ) as HTMLButtonElement | null;
-  const mobileMenu = document.getElementById("mobile-menu");
+  function setupMobileMenu() {
+    const mobileMenuButton = document.getElementById(
+      "mobile-menu-button"
+    ) as HTMLButtonElement | null;
+    const mobileMenu = document.getElementById("mobile-menu");
 
-  function setMenuOpen(open: boolean) {
-    if (open) {
-      mobileMenu?.classList.remove("-translate-y-full");
-    } else {
-      mobileMenu?.classList.add("-translate-y-full");
+    function setMenuOpen(open: boolean) {
+      mobileMenu?.classList.toggle("-translate-y-full", !open);
+      mobileMenuButton?.setAttribute("aria-expanded", String(open));
     }
-    mobileMenuButton?.setAttribute("aria-expanded", String(open));
+
+    mobileMenuButton?.addEventListener("click", () => {
+      const isOpen = !mobileMenu?.classList.contains("-translate-y-full");
+      setMenuOpen(!isOpen);
+    });
+
+    document.addEventListener("click", (e) => {
+      if (
+        !mobileMenu?.contains(e.target as Node) &&
+        !mobileMenuButton?.contains(e.target as Node) &&
+        !mobileMenu?.classList.contains("-translate-y-full")
+      ) {
+        setMenuOpen(false);
+      }
+    });
+
+    mobileMenu?.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setMenuOpen(false));
+    });
   }
 
-  mobileMenuButton?.addEventListener("click", () => {
-    const isOpen = !mobileMenu?.classList.contains("-translate-y-full");
-    setMenuOpen(!isOpen);
-  });
-
-  document.addEventListener("click", (e) => {
-    if (
-      !mobileMenu?.contains(e.target as Node) &&
-      !mobileMenuButton?.contains(e.target as Node) &&
-      !mobileMenu?.classList.contains("-translate-y-full")
-    ) {
-      setMenuOpen(false);
-    }
-  });
-
-  mobileMenu?.querySelectorAll("a").forEach((link) => {
-    link.addEventListener("click", () => setMenuOpen(false));
-  });
+  document.addEventListener("astro:page-load", setupMobileMenu);
 </script>
