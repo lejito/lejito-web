@@ -25,13 +25,13 @@ Está destinado a demostrar mis habilidades en desarrollo web, tecnologías en l
 
 Los componentes siguen la metodología **Atomic Design**:
 
-| Nivel | Ruta | Propósito |
-|---|---|---|
-| Átomos | `src/components/atoms/` | Unidades indivisibles: íconos, enlaces |
-| Moléculas | `src/components/molecules/` | Átomos compuestos: Logo, ThemeSwitch |
-| Organismos | `src/components/organisms/` | Secciones completas: Header, Footer |
-| Plantillas | `src/layouts/` | Esqueletos de página |
-| Páginas | `src/pages/` | Rutas Astro con contenido real |
+| Nivel      | Ruta                        | Propósito                              |
+| ---------- | --------------------------- | -------------------------------------- |
+| Átomos     | `src/components/atoms/`     | Unidades indivisibles: íconos, enlaces |
+| Moléculas  | `src/components/molecules/` | Átomos compuestos: Logo, ThemeSwitch   |
+| Organismos | `src/components/organisms/` | Secciones completas: Header, Footer    |
+| Plantillas | `src/layouts/`              | Esqueletos de página                   |
+| Páginas    | `src/pages/`                | Rutas Astro con contenido real         |
 
 La configuración global (nombre del autor, redes sociales, enlaces de navegación) vive en `src/config/site.ts` — fuente única de verdad.
 

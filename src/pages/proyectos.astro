@@ -5,7 +5,7 @@ import { getCollection } from "astro:content";
 
 const projects = await getCollection("projects");
 const sorted = projects.sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
 );
 ---
 
@@ -16,22 +16,24 @@ const sorted = projects.sort(
       Cosas que he construido.
     </p>
 
-    {sorted.length === 0 ? (
-      <p class="text-center text-gray-400 py-20">Próximamente...</p>
-    ) : (
-      <div class="grid gap-6 sm:grid-cols-2">
-        {sorted.map((project) => (
-          <ProjectCard
-            title={project.data.title}
-            description={project.data.description}
-            tags={project.data.tags}
-            url={project.data.url}
-            repo={project.data.repo}
-            image={project.data.image}
-            featured={project.data.featured}
-          />
-        ))}
-      </div>
-    )}
+    {
+      sorted.length === 0 ? (
+        <p class="text-center text-gray-400 py-20">Próximamente...</p>
+      ) : (
+        <div class="grid gap-6 sm:grid-cols-2">
+          {sorted.map((project) => (
+            <ProjectCard
+              title={project.data.title}
+              description={project.data.description}
+              tags={project.data.tags}
+              url={project.data.url}
+              repo={project.data.repo}
+              image={project.data.image}
+              featured={project.data.featured}
+            />
+          ))}
+        </div>
+      )
+    }
   </section>
 </Layout>

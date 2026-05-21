@@ -1,42 +1,19 @@
 {
-    "extends": "astro/tsconfigs/base",
-    "include": [
-        ".astro/types.d.ts",
-        "**/*"
-    ],
-    "exclude": [
-        "dist"
-    ],
-    "compilerOptions": {
-        "paths": {
-            "@components/*": [
-                "./src/components/*"
-            ],
-            "@atoms/*": [
-                "./src/components/atoms/*"
-            ],
-            "@molecules/*": [
-                "./src/components/molecules/*"
-            ],
-            "@organisms/*": [
-                "./src/components/organisms/*"
-            ],
-            "@layouts/*": [
-                "./src/layouts/*"
-            ],
-            "@pages/*": [
-                "./src/pages/*"
-            ],
-            "@styles/*": [
-                "./src/styles/*"
-            ],
-            "@images/*": [
-                "./src/images/*"
-            ],
-            "@config/*": [
-                "./src/config/*"
-            ],
-        },
-        "verbatimModuleSyntax": true,
-    }
+  "extends": "astro/tsconfigs/base",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"],
+  "compilerOptions": {
+    "paths": {
+      "@components/*": ["./src/components/*"],
+      "@atoms/*": ["./src/components/atoms/*"],
+      "@molecules/*": ["./src/components/molecules/*"],
+      "@organisms/*": ["./src/components/organisms/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@images/*": ["./src/images/*"],
+      "@config/*": ["./src/config/*"]
+    },
+    "verbatimModuleSyntax": true
+  }
 }

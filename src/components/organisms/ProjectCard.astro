@@ -22,45 +22,53 @@ const { title, description, tags, url, repo, featured } = Astro.props;
 >
   <div class="flex items-start justify-between gap-4">
     <h3 class="text-lg font-bold leading-tight">{title}</h3>
-    {featured && (
-      <span class="shrink-0 rounded-full bg-custom-primary px-2.5 py-0.5 text-xs font-medium text-custom-light">
-        Destacado
-      </span>
-    )}
+    {
+      featured && (
+        <span class="shrink-0 rounded-full bg-custom-primary px-2.5 py-0.5 text-xs font-medium text-custom-light">
+          Destacado
+        </span>
+      )
+    }
   </div>
 
-  <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{description}</p>
+  <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+    {description}
+  </p>
 
   <div class="flex flex-wrap gap-2">
-    {tags.map((tag) => (
-      <span class="rounded-md bg-gray-100 dark:bg-gray-700 px-2 py-0.5 text-xs font-medium text-gray-700 dark:text-gray-300">
-        {tag}
-      </span>
-    ))}
+    {
+      tags.map((tag) => (
+        <span class="rounded-md bg-gray-100 dark:bg-gray-700 px-2 py-0.5 text-xs font-medium text-gray-700 dark:text-gray-300">
+          {tag}
+        </span>
+      ))
+    }
   </div>
 
-  {(url || repo) && (
-    <div class="flex items-center gap-4 mt-auto pt-2">
-      {url && (
-        <a
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-sm font-medium text-custom-primary hover:opacity-70 transition-opacity"
-        >
-          Ver sitio →
-        </a>
-      )}
-      {repo && (
-        <a
-          href={repo}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:opacity-70 transition-opacity"
-        >
-          Repositorio →
-        </a>
-      )}
-    </div>
-  )}
+  {
+    (url || repo) && (
+      <div class="flex items-center gap-4 mt-auto pt-2">
+        {url && (
+          <a
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sm font-medium text-custom-primary hover:opacity-70 transition-opacity"
+          >
+            Ver sitio →
+          </a>
+        )}
+        {repo && (
+          <a
+            href={repo}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:opacity-70 transition-opacity"
+          >
+            Repositorio →
+          </a>
+        )}
+      </div>
+    )
+  }
 </article>

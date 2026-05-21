@@ -25,13 +25,13 @@ It is intended to demonstrate my skills in web development, cloud technologies, 
 
 Components follow **Atomic Design** methodology:
 
-| Level | Path | Purpose |
-|---|---|---|
-| Atoms | `src/components/atoms/` | Indivisible units: icons, links |
+| Level     | Path                        | Purpose                           |
+| --------- | --------------------------- | --------------------------------- |
+| Atoms     | `src/components/atoms/`     | Indivisible units: icons, links   |
 | Molecules | `src/components/molecules/` | Composed atoms: Logo, ThemeSwitch |
-| Organisms | `src/components/organisms/` | Full sections: Header, Footer |
-| Templates | `src/layouts/` | Page skeletons |
-| Pages | `src/pages/` | Astro routes with real content |
+| Organisms | `src/components/organisms/` | Full sections: Header, Footer     |
+| Templates | `src/layouts/`              | Page skeletons                    |
+| Pages     | `src/pages/`                | Astro routes with real content    |
 
 Site-wide config (owner name, social links, nav links) lives in `src/config/site.ts` — single source of truth.
 

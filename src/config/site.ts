@@ -9,9 +9,17 @@ export const SITE = {
 } as const;
 
 export const SOCIAL_LINKS = [
-  { href: "https://linkedin.com/in/alejocrrs", label: "LinkedIn", icon: "linkedin" },
+  {
+    href: "https://linkedin.com/in/alejocrrs",
+    label: "LinkedIn",
+    icon: "linkedin",
+  },
   { href: "https://github.com/lejito", label: "GitHub", icon: "github" },
-  { href: "https://instagram.com/alejocrrs", label: "Instagram", icon: "instagram" },
+  {
+    href: "https://instagram.com/alejocrrs",
+    label: "Instagram",
+    icon: "instagram",
+  },
   { href: "https://x.com/alejocrrs", label: "X (Twitter)", icon: "twitter" },
 ] as const;
 

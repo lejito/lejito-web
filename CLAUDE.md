@@ -20,31 +20,32 @@ There are no tests.
 
 **Path aliases** (configured in `tsconfig.json`):
 
-| Alias | Resolves to |
-|---|---|
-| `@atoms/*` | `src/components/atoms/*` |
-| `@molecules/*` | `src/components/molecules/*` |
-| `@organisms/*` | `src/components/organisms/*` |
+| Alias           | Resolves to                        |
+| --------------- | ---------------------------------- |
+| `@atoms/*`      | `src/components/atoms/*`           |
+| `@molecules/*`  | `src/components/molecules/*`       |
+| `@organisms/*`  | `src/components/organisms/*`       |
 | `@components/*` | `src/components/*` (root fallback) |
-| `@layouts/*` | `src/layouts/*` |
-| `@pages/*` | `src/pages/*` |
-| `@styles/*` | `src/styles/*` |
-| `@images/*` | `src/images/*` |
-| `@config/*` | `src/config/*` |
+| `@layouts/*`    | `src/layouts/*`                    |
+| `@pages/*`      | `src/pages/*`                      |
+| `@styles/*`     | `src/styles/*`                     |
+| `@images/*`     | `src/images/*`                     |
+| `@config/*`     | `src/config/*`                     |
 
 ## Atomic Design
 
 Components follow Brad Frost's Atomic Design methodology. The five levels map to this project:
 
-| Level | Directory | Description | Examples |
-|---|---|---|---|
-| **Atoms** | `src/components/atoms/` | Smallest indivisible units — no component dependencies | Icons, `SocialLink` |
-| **Molecules** | `src/components/molecules/` | Groups of atoms with a single purpose | `Logo`, `ThemeSwitch` |
-| **Organisms** | `src/components/organisms/` | Complex sections composed of molecules and atoms | `Header`, `Footer` |
-| **Templates** | `src/layouts/` | Page-level skeletons; wire up organisms into structure | `Layout` |
-| **Pages** | `src/pages/` | Astro routes; instances of templates with real content | `index`, `404` |
+| Level         | Directory                   | Description                                            | Examples              |
+| ------------- | --------------------------- | ------------------------------------------------------ | --------------------- |
+| **Atoms**     | `src/components/atoms/`     | Smallest indivisible units — no component dependencies | Icons, `SocialLink`   |
+| **Molecules** | `src/components/molecules/` | Groups of atoms with a single purpose                  | `Logo`, `ThemeSwitch` |
+| **Organisms** | `src/components/organisms/` | Complex sections composed of molecules and atoms       | `Header`, `Footer`    |
+| **Templates** | `src/layouts/`              | Page-level skeletons; wire up organisms into structure | `Layout`              |
+| **Pages**     | `src/pages/`                | Astro routes; instances of templates with real content | `index`, `404`        |
 
 **Rules:**
+
 - Atoms import nothing from `@atoms`, `@molecules`, or `@organisms`.
 - Molecules import only from `@atoms/*` (never from `@molecules` or higher).
 - Organisms import from `@atoms/*` and `@molecules/*` (never from `@organisms`).

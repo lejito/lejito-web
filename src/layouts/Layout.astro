@@ -26,7 +26,10 @@ const pageTitle = title
 const today = new Date();
 let age = today.getFullYear() - SITE.birthDate.getFullYear();
 const monthDiff = today.getMonth() - SITE.birthDate.getMonth();
-if (monthDiff < 0 || (monthDiff === 0 && today.getDate() <= SITE.birthDate.getDate())) {
+if (
+  monthDiff < 0 ||
+  (monthDiff === 0 && today.getDate() <= SITE.birthDate.getDate())
+) {
   age -= 1;
 }
 
@@ -46,7 +49,9 @@ const canonicalURL = Astro.site
       function applyTheme() {
         const theme =
           localStorage.getItem("theme") ||
-          (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          (window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light");
         document.documentElement.classList.remove("dark", "light");
         document.documentElement.classList.add(theme);
       }
@@ -84,8 +89,16 @@ const canonicalURL = Astro.site
     <link rel="manifest" href="/site.webmanifest" />
 
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#1a212f" media="(prefers-color-scheme: dark)" />
+    <meta
+      name="theme-color"
+      content="#ffffff"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#1a212f"
+      media="(prefers-color-scheme: dark)"
+    />
 
     <ClientRouter />
   </head>
