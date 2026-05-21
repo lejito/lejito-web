@@ -1,6 +1,6 @@
 export const SITE = {
   owner: "Alejandro Cordoba Rios",
-  handle: "@lejito",
+  nick: "lejito",
   birthDate: new Date("2003-05-27"),
   url: "https://lejito.dev",
   locale: "es_ES",

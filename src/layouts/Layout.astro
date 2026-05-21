@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import "@styles/global.css";
 import Header from "@organisms/Header.astro";
 import Footer from "@organisms/Footer.astro";
@@ -20,8 +20,8 @@ const {
 } = Astro.props;
 
 const pageTitle = title
-  ? `${title} | ${SITE.owner} (${SITE.handle})`
-  : `Portafolio: ${SITE.owner} (${SITE.handle})`;
+  ? `${title} | ${SITE.owner} (@${SITE.nick})`
+  : `Portafolio: ${SITE.owner} (@${SITE.nick})`;
 
 const today = new Date();
 let age = today.getFullYear() - SITE.birthDate.getFullYear();
@@ -87,7 +87,7 @@ const canonicalURL = Astro.site
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#1a212f" media="(prefers-color-scheme: dark)" />
 
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body class="overflow-x-hidden antialiased">
     <Header />

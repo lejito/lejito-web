@@ -1,0 +1,10 @@
+{
+  "enabledPlugins": {
+    "atomic-design@han": true,
+    "frontend-design@claude-plugins-official": true,
+    "frontend-mobile-development@claude-code-workflows": true,
+    "javascript-typescript@claude-code-workflows": true,
+    "vitest@han": true,
+    "tailwind@han": true
+  }
+}
