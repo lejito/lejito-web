@@ -1,0 +1,25 @@
+---
+import { Image } from "astro:assets";
+import lejitoLogo from "@images/lejito-logo.svg";
+import { SITE } from "@config/site";
+---
+
+<a href="/" class="flex items-center gap-1 xl:gap-4">
+  <Image
+    src={lejitoLogo}
+    alt="Lejito Logo"
+    fetchpriority="high"
+    loading="eager"
+    class="h-12 w-12 md:h-16 md:w-16 drop-shadow-xs drop-shadow-gray-700 transition"
+  />
+  <div class="relative flex items-center">
+    <div class="flex flex-row items-center gap-1 md:gap-2 text-shadow-xs">
+      <h1 class="text-sm xl:text-base font-bold text-nowrap leading-tight">
+        {SITE.owner}
+      </h1>
+      <span class="hidden xs:inline text-xs font-medium text-nowrap opacity-70 leading-none"
+        >(@{SITE.handle})</span
+      >
+    </div>
+  </div>
+</a>

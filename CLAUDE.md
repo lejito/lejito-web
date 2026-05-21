@@ -22,12 +22,38 @@ There are no tests.
 
 | Alias | Resolves to |
 |---|---|
-| `@components/*` | `src/components/*` |
+| `@atoms/*` | `src/components/atoms/*` |
+| `@molecules/*` | `src/components/molecules/*` |
+| `@organisms/*` | `src/components/organisms/*` |
+| `@components/*` | `src/components/*` (root fallback) |
 | `@layouts/*` | `src/layouts/*` |
 | `@pages/*` | `src/pages/*` |
 | `@styles/*` | `src/styles/*` |
 | `@images/*` | `src/images/*` |
 | `@config/*` | `src/config/*` |
+
+## Atomic Design
+
+Components follow Brad Frost's Atomic Design methodology. The five levels map to this project:
+
+| Level | Directory | Description | Examples |
+|---|---|---|---|
+| **Atoms** | `src/components/atoms/` | Smallest indivisible units — no component dependencies | Icons, `SocialLink` |
+| **Molecules** | `src/components/molecules/` | Groups of atoms with a single purpose | `Logo`, `ThemeSwitch` |
+| **Organisms** | `src/components/organisms/` | Complex sections composed of molecules and atoms | `Header`, `Footer` |
+| **Templates** | `src/layouts/` | Page-level skeletons; wire up organisms into structure | `Layout` |
+| **Pages** | `src/pages/` | Astro routes; instances of templates with real content | `index`, `404` |
+
+**Rules:**
+- Atoms import nothing from `@atoms`, `@molecules`, or `@organisms`.
+- Molecules import only from `@atoms/*` (never from `@molecules` or higher).
+- Organisms import from `@atoms/*` and `@molecules/*` (never from `@organisms`).
+- Templates import from `@organisms/*` and below.
+- Always use the most specific alias (`@atoms/`, `@molecules/`, `@organisms/`) — not `@components/`.
+- New icons go in `src/components/atoms/icons/` as `.astro` files with `size` and `class` props.
+- New reusable UI primitives (buttons, badges, links) go in `src/components/atoms/`.
+- New compound widgets go in `src/components/molecules/`.
+- New full page sections go in `src/components/organisms/`.
 
 **Site config** (`src/config/site.ts`): Single source of truth for `SITE` (owner, handle, birthDate, url, locale, defaultKeywords), `SOCIAL_LINKS`, and `NAV_LINKS`. Import from here — do not hard-code names, URLs, or nav entries in components.
 
@@ -37,11 +63,13 @@ There are no tests.
 
 **Design tokens** (`src/styles/global.css`): Defines CSS custom properties for the full color palette (primary `#145b94`, primary-dark `#1e7fc7`, plus success/warning/danger/info/violet/pink/dark/light/gray), the Rubik font (self-hosted via `@fontsource-variable/rubik`), and dark/light gradient backgrounds. All theming goes through these tokens — do not hard-code hex values.
 
-**Theme toggle**: `ThemeSwitch.astro` persists the user's preference to `localStorage` and toggles the `dark` class on `<html>`. `Header.astro` integrates it on both desktop and mobile layouts.
+**Theme toggle**: `molecules/ThemeSwitch.astro` persists the user's preference to `localStorage` and toggles the `dark` class on `<html>`. `Header.astro` integrates it on both desktop and mobile layouts.
 
-**Header** (`src/components/Header.astro`): Iterates `NAV_LINKS` and `SOCIAL_LINKS` from `@config/site` — no duplicate desktop/mobile entries. Sets `aria-current="page"` on the active nav link. Mobile menu button uses `aria-expanded` kept in sync via `setMenuOpen()`. Logo has `fetchpriority="high" loading="eager"`.
+**Logo** (`src/components/molecules/Logo.astro`): Renders the site logo image and owner name/handle from `SITE` config. Used by `Header.astro`.
 
-**Icons**: Each icon is its own Astro component in `src/components/icons/` (e.g., `GithubIcon.astro`). All icons accept `size?: number | string` and `class?: string` props. Do not inline raw SVGs — add a new component file instead.
+**Header** (`src/components/organisms/Header.astro`): Composes `Logo`, `SocialLink`, icon atoms, and `ThemeSwitch`. Iterates `NAV_LINKS` and `SOCIAL_LINKS` from `@config/site` — no duplicate desktop/mobile entries. Sets `aria-current="page"` on the active nav link. Mobile menu button uses `aria-expanded` kept in sync via `setMenuOpen()`.
+
+**Icons**: Each icon is its own Astro component in `src/components/atoms/icons/` (e.g., `GithubIcon.astro`). All icons accept `size?: number | string` and `class?: string` props. Do not inline raw SVGs — add a new component file instead. Import via `@atoms/icons/IconName.astro`.
 
 **Content Collections** (`src/content/config.ts`): Defines a `projects` collection (type `data`, JSON files in `src/content/projects/`). Schema: `title`, `description`, `tags`, `url?`, `repo?`, `image?`, `featured`, `date`. Add project entries as `src/content/projects/<slug>.json`.
 

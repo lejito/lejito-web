@@ -1,6 +1,5 @@
 # Lejito Web
 
-
 Welcome to my personal portfolio repository.
 This project showcases my work in software engineering created as part of my professional portfolio.
 
@@ -13,6 +12,38 @@ This project showcases my work in software engineering created as part of my pro
 
 This repository contains code, documentation and examples that reflect my technical journey and professional growth.
 It is intended to demonstrate my skills in web development, cloud technologies, and software engineering.
+
+## 🛠️ Tech Stack
+
+- **[Astro 5](https://astro.build/)** — static site generator with View Transitions
+- **[Tailwind CSS 4](https://tailwindcss.com/)** — utility-first styling via `@tailwindcss/vite`
+- **TypeScript** — strict typing throughout
+- **Self-hosted variable font** — Rubik via `@fontsource-variable/rubik`
+- **PWA manifest** + **sitemap** generation via `@astrojs/sitemap`
+
+## 🏗️ Architecture
+
+Components follow **Atomic Design** methodology:
+
+| Level | Path | Purpose |
+|---|---|---|
+| Atoms | `src/components/atoms/` | Indivisible units: icons, links |
+| Molecules | `src/components/molecules/` | Composed atoms: Logo, ThemeSwitch |
+| Organisms | `src/components/organisms/` | Full sections: Header, Footer |
+| Templates | `src/layouts/` | Page skeletons |
+| Pages | `src/pages/` | Astro routes with real content |
+
+Site-wide config (owner name, social links, nav links) lives in `src/config/site.ts` — single source of truth.
+
+## ⚙️ Commands
+
+```bash
+pnpm dev      # Start dev server
+pnpm build    # Type-check + build
+pnpm preview  # Serve production build
+pnpm lint     # ESLint + Prettier check
+pnpm format   # Prettier write
+```
 
 ## ⚖️ License
 

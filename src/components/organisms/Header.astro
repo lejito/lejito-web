@@ -1,13 +1,12 @@
 ---
-import { Image } from "astro:assets";
-import lejitoLogo from "@images/lejito-logo.svg";
-import SocialLink from "@components/SocialLink.astro";
-import LinkedinIcon from "@components/icons/LinkedinIcon.astro";
-import GithubIcon from "@components/icons/GithubIcon.astro";
-import InstagramIcon from "@components/icons/InstagramIcon.astro";
-import TwitterIcon from "@components/icons/TwitterIcon.astro";
-import ThemeSwitch from "@components/ThemeSwitch.astro";
-import MenuIcon from "./icons/MenuIcon.astro";
+import Logo from "@molecules/Logo.astro";
+import SocialLink from "@atoms/SocialLink.astro";
+import LinkedinIcon from "@atoms/icons/LinkedinIcon.astro";
+import GithubIcon from "@atoms/icons/GithubIcon.astro";
+import InstagramIcon from "@atoms/icons/InstagramIcon.astro";
+import TwitterIcon from "@atoms/icons/TwitterIcon.astro";
+import ThemeSwitch from "@molecules/ThemeSwitch.astro";
+import MenuIcon from "@atoms/icons/MenuIcon.astro";
 import { SOCIAL_LINKS, NAV_LINKS } from "@config/site";
 
 const iconMap = {
@@ -24,25 +23,7 @@ const currentPath = Astro.url.pathname;
   class="fixed top-0 left-0 w-full inset-x-0 z-50 h-20 bg-white/95 dark:bg-gray-800/95 flex items-center justify-between transition px-4 md:px-8 py-4 shadow-md backdrop-blur"
 >
   <!-- Logo -->
-  <a href="/" class="flex items-center gap-1 xl:gap-4">
-    <Image
-      src={lejitoLogo}
-      alt="Lejito Logo"
-      fetchpriority="high"
-      loading="eager"
-      class="h-12 w-12 md:h-16 md:w-16 drop-shadow-xs drop-shadow-gray-700 transition"
-    />
-    <div class="relative flex items-center">
-      <div class="flex flex-row items-center gap-1 md:gap-2 text-shadow-xs">
-        <h1 class="text-sm xl:text-base font-bold text-nowrap leading-tight">
-          Alejandro Cordoba Rios
-        </h1>
-        <span class="hidden xs:inline text-xs font-medium text-nowrap opacity-70 leading-none"
-          >(@lejito)</span
-        >
-      </div>
-    </div>
-  </a>
+  <Logo />
 
   <!-- Desktop Navigation -->
   <nav
