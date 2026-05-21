@@ -19,7 +19,11 @@
   ],
   "author": "Lejito (Alejandro Cordoba Rios)",
   "license": "GPL-3.0-only",
-  "packageManager": "pnpm@10.32.1",
+  "packageManager": "pnpm@11.1.1",
+  "engines": {
+    "node": "24.15.0",
+    "pnpm": "11.1.1"
+  },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
     "@astrojs/sitemap": "^3.7.2",
