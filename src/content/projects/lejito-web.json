@@ -1,0 +1,8 @@
+{
+  "title": "lejito.dev",
+  "description": "Mi portafolio personal construido con Astro 6, Tailwind CSS 4 y TypeScript. Incluye modo oscuro, PWA, sitemap y Atomic Design.",
+  "tags": ["Astro", "TypeScript", "Tailwind CSS", "PWA"],
+  "repo": "https://github.com/Lejitop/lejito-web",
+  "featured": true,
+  "date": "2025-01-01"
+}

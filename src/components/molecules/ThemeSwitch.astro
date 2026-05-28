@@ -1,6 +1,6 @@
 ---
-import SunIcon from "@components/icons/SunIcon.astro";
-import MoonIcon from "@components/icons/MoonIcon.astro";
+import SunIcon from "@atoms/icons/SunIcon.astro";
+import MoonIcon from "@atoms/icons/MoonIcon.astro";
 ---
 
 <button
@@ -32,7 +32,8 @@ import MoonIcon from "@components/icons/MoonIcon.astro";
     border-radius: 9999px;
     background: linear-gradient(to right, rgb(253 224 71), rgb(251 146 60));
     opacity: 1;
-    transition: opacity var(--default-transition-duration) var(--default-transition-timing);
+    transition: opacity var(--default-transition-duration)
+      var(--default-transition-timing);
   }
 
   .theme-toggle::after {
@@ -42,7 +43,8 @@ import MoonIcon from "@components/icons/MoonIcon.astro";
     border-radius: 9999px;
     background: linear-gradient(to right, rgb(96 165 250), rgb(99 102 241));
     opacity: 0;
-    transition: opacity var(--default-transition-duration) var(--default-transition-timing);
+    transition: opacity var(--default-transition-duration)
+      var(--default-transition-timing);
   }
 
   .icon-container {
@@ -81,20 +83,16 @@ import MoonIcon from "@components/icons/MoonIcon.astro";
 </style>
 
 <script>
-  const themeToggles = document.querySelectorAll(".theme-toggle");
-  const html = document.documentElement;
-
-  themeToggles.forEach((toggle) => {
-    toggle.addEventListener("click", () => {
-      const currentTheme = html.classList.contains("dark") ? "dark" : "light";
-      const newTheme = currentTheme === "dark" ? "light" : "dark";
-
-      if (newTheme === "dark") {
-        html.classList.add("dark");
-      } else {
-        html.classList.remove("dark");
-      }
-      localStorage.setItem("theme", newTheme);
+  function setupThemeToggles() {
+    const html = document.documentElement;
+    document.querySelectorAll(".theme-toggle").forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        const newTheme = html.classList.contains("dark") ? "light" : "dark";
+        html.classList.toggle("dark", newTheme === "dark");
+        localStorage.setItem("theme", newTheme);
+      });
     });
-  });
+  }
+
+  document.addEventListener("astro:page-load", setupThemeToggles);
 </script>

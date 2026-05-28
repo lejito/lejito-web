@@ -1,0 +1,162 @@
+---
+import Logo from "@molecules/Logo.astro";
+import SocialLink from "@atoms/SocialLink.astro";
+import LinkedinIcon from "@atoms/icons/LinkedinIcon.astro";
+import GithubIcon from "@atoms/icons/GithubIcon.astro";
+import InstagramIcon from "@atoms/icons/InstagramIcon.astro";
+import TwitterIcon from "@atoms/icons/TwitterIcon.astro";
+import ThemeSwitch from "@molecules/ThemeSwitch.astro";
+import MenuIcon from "@atoms/icons/MenuIcon.astro";
+import { SOCIAL_LINKS, NAV_LINKS } from "@config/site";
+
+const iconMap = {
+  linkedin: LinkedinIcon,
+  github: GithubIcon,
+  instagram: InstagramIcon,
+  twitter: TwitterIcon,
+} as const;
+
+const currentPath = Astro.url.pathname;
+---
+
+<header
+  class="fixed top-0 left-0 w-full inset-x-0 z-50 h-20 bg-white/95 dark:bg-gray-800/95 flex items-center justify-between transition px-4 md:px-8 py-4 shadow-md backdrop-blur"
+>
+  <!-- Logo -->
+  <Logo />
+
+  <!-- Desktop Navigation -->
+  <nav
+    class="hidden lg:flex items-center gap-6 xl:gap-10 text-nowrap text-sm xl:text-base"
+  >
+    {
+      NAV_LINKS.map(({ href, label }) => (
+        <a
+          href={href}
+          class="hover:opacity-70 transition-opacity"
+          aria-current={currentPath === href ? "page" : undefined}
+        >
+          {label}
+        </a>
+      ))
+    }
+  </nav>
+
+  <!-- Desktop Social Links & Theme Switch -->
+  <div class="hidden lg:flex items-center gap-6 xl:gap-10">
+    <div class="flex items-center gap-4 lg:gap-6">
+      {
+        SOCIAL_LINKS.map(({ href, label, icon }) => {
+          const Icon = iconMap[icon];
+          return (
+            <SocialLink href={href} label={label}>
+              <Icon />
+            </SocialLink>
+          );
+        })
+      }
+    </div>
+
+    <ThemeSwitch />
+  </div>
+
+  <!-- Mobile Menu Button -->
+  <button
+    id="mobile-menu-button"
+    class="lg:hidden flex flex-col gap-1.5 p-2"
+    aria-label="Menú"
+    aria-expanded="false"
+    aria-controls="mobile-menu"
+  >
+    <MenuIcon size="28" />
+  </button>
+</header>
+
+<!-- Mobile Menu -->
+<div
+  id="mobile-menu"
+  class="fixed top-20 left-0 w-full bg-white/95 dark:bg-gray-800/95 backdrop-blur shadow-lg lg:hidden transform -translate-y-full transition z-40"
+>
+  <div class="flex flex-col p-6 gap-6">
+    <!-- Mobile Navigation -->
+    <nav class="flex flex-col gap-4">
+      {
+        NAV_LINKS.map(({ href, label }) => (
+          <a
+            href={href}
+            class="text-lg hover:opacity-70 transition-opacity"
+            aria-current={currentPath === href ? "page" : undefined}
+          >
+            {label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <hr class="border-gray-300 dark:border-gray-700 transition" />
+
+    <!-- Mobile Social Links -->
+    <div class="flex items-center justify-between">
+      <div class="flex items-center gap-6">
+        {
+          SOCIAL_LINKS.map(({ href, label, icon }) => {
+            const Icon = iconMap[icon];
+            return (
+              <SocialLink href={href} label={label}>
+                <Icon />
+              </SocialLink>
+            );
+          })
+        }
+      </div>
+      <ThemeSwitch />
+    </div>
+  </div>
+</div>
+
+<script>
+  let controller = new AbortController();
+
+  function setupMobileMenu() {
+    controller.abort();
+    controller = new AbortController();
+    const signal = controller.signal;
+
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    function setMenuOpen(open: boolean) {
+      mobileMenu?.classList.toggle("-translate-y-full", !open);
+      mobileMenuButton?.setAttribute("aria-expanded", String(open));
+    }
+
+    mobileMenuButton?.addEventListener(
+      "click",
+      () => {
+        const isOpen = !mobileMenu?.classList.contains("-translate-y-full");
+        setMenuOpen(!isOpen);
+      },
+      { signal },
+    );
+
+    document.addEventListener(
+      "click",
+      (e) => {
+        if (
+          !mobileMenu?.contains(e.target as Node) &&
+          !mobileMenuButton?.contains(e.target as Node) &&
+          !mobileMenu?.classList.contains("-translate-y-full")
+        ) {
+          setMenuOpen(false);
+        }
+      },
+      { signal },
+    );
+
+    mobileMenu?.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setMenuOpen(false), { signal });
+    });
+  }
+
+  document.addEventListener("astro:page-load", setupMobileMenu);
+</script>

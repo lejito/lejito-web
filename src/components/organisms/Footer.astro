@@ -1,0 +1,21 @@
+---
+import BoltIcon from "@atoms/icons/BoltIcon.astro";
+import { SITE } from "@config/site";
+---
+
+<footer
+  class="flex flex-col gap-3 justify-center items-center py-4 text-gray-500 dark:text-gray-400"
+>
+  <div class="flex gap-4 my-4">
+    <span class="w-8 h-1 rounded-l bg-gray-300 dark:bg-gray-700 transition"
+    ></span>
+    <span class="w-8 h-1 bg-gray-300 dark:bg-gray-700 transition"></span>
+    <span class="w-8 h-1 rounded-r bg-gray-300 dark:bg-gray-700 transition"
+    ></span>
+  </div>
+  <p class="text-center text-sm transition">
+    &copy; {new Date().getFullYear()} ~ {SITE.owner}. Todos los derechos
+    reservados.
+  </p>
+  <BoltIcon size="32" class="transition" />
+</footer>

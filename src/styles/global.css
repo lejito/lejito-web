@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+@import "@fontsource-variable/rubik";
 
 @import "tailwindcss";
 
@@ -20,7 +20,7 @@
   --color-custom-violet: #a393bf;
   --color-custom-pink: #b9379b;
 
-  --color-custom-primary-dark: #145b94;
+  --color-custom-primary-dark: #1e7fc7;
 }
 
 body {
@@ -36,7 +36,8 @@ body {
 }
 
 /* Apply default transition timing only to elements that opt-in via Tailwind's transition classes */
-[class*="transition"], [class^="transition"] {
+[class*="transition"],
+[class^="transition"] {
   transition-duration: var(--default-transition-duration);
   transition-timing-function: var(--default-transition-timing);
 }
@@ -58,7 +59,8 @@ body::before {
     #efc9c7 100%
   );
   opacity: 1;
-  transition: opacity var(--default-transition-duration) var(--default-transition-timing);
+  transition: opacity var(--default-transition-duration)
+    var(--default-transition-timing);
 }
 
 body::after {
@@ -78,7 +80,8 @@ body::after {
     #231717 100%
   );
   opacity: 0;
-  transition: opacity var(--default-transition-duration) var(--default-transition-timing);
+  transition: opacity var(--default-transition-duration)
+    var(--default-transition-timing);
 }
 
 .dark body {
