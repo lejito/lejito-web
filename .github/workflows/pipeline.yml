@@ -67,7 +67,10 @@ jobs:
       - name: Deploy to Vercel
         id: vercel
         run: |
-          url=$(npx vercel --token=${{ secrets.VERCEL_TOKEN }} --yes 2>&1 | tail -1)
+          output=$(npx vercel --token=${{ secrets.VERCEL_TOKEN }} --yes 2>&1)
+          echo "$output"
+          url=$(echo "$output" | grep -oE 'https://[^ ]+\.vercel\.app' | tail -1)
+          echo "url=$url"
           echo "url=$url" >> $GITHUB_OUTPUT
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -110,7 +113,10 @@ jobs:
       - name: Deploy to Vercel
         id: vercel
         run: |
-          url=$(npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes 2>&1 | tail -1)
+          output=$(npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --yes 2>&1)
+          echo "$output"
+          url=$(echo "$output" | grep -oE 'https://[^ ]+\.vercel\.app' | tail -1)
+          echo "url=$url"
           echo "url=$url" >> $GITHUB_OUTPUT
         env:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
