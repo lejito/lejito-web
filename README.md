@@ -15,7 +15,7 @@ It is intended to demonstrate my skills in web development, cloud technologies, 
 
 ## 🛠️ Tech Stack
 
-- **[Astro 5](https://astro.build/)** — static site generator with View Transitions
+- **[Astro 6](https://astro.build/)** — static site generator with View Transitions
 - **[Tailwind CSS 4](https://tailwindcss.com/)** — utility-first styling via `@tailwindcss/vite`
 - **TypeScript** — strict typing throughout
 - **Self-hosted variable font** — Rubik via `@fontsource-variable/rubik`

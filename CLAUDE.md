@@ -16,7 +16,7 @@ There are no tests.
 
 ## Architecture
 
-**Stack**: Astro 5 + Tailwind CSS 4 (via `@tailwindcss/vite`) + TypeScript. No framework (React/Vue/Svelte) — all components are `.astro` files.
+**Stack**: Astro 6 + Tailwind CSS 4 (via `@tailwindcss/vite`) + TypeScript. No framework (React/Vue/Svelte) — all components are `.astro` files.
 
 **Path aliases** (configured in `tsconfig.json`):
 
@@ -60,7 +60,7 @@ Components follow Brad Frost's Atomic Design methodology. The five levels map to
 
 **Component pattern**: All `.astro` files use the frontmatter block (`---`) for TypeScript logic and typed props, then the HTML template below. Props are declared as `interface Props {}` and destructured from `Astro.props`.
 
-**Layout** (`src/layouts/Layout.astro`): The single master template. Accepts optional `title`, `description`, `image`, and `keywords` props. Imports from `@config/site`. Dynamically computes the author's age from `SITE.birthDate`, includes full `<head>` metadata, PWA manifest, `<ViewTransitions />`, and renders `<Header />` + `<Footer />` around the default slot. Dark mode state is read from `localStorage` and set as a class on `<html>` via an inline script.
+**Layout** (`src/layouts/Layout.astro`): The single master template. Accepts optional `title`, `description`, `image`, and `keywords` props. Imports from `@config/site`. Dynamically computes the author's age from `SITE.birthDate`, includes full `<head>` metadata, PWA manifest, `<ClientRouter />` (View Transitions), and renders `<Header />` + `<Footer />` around the default slot. Dark mode state is read from `localStorage` and set as a class on `<html>` via an inline script.
 
 **Design tokens** (`src/styles/global.css`): Defines CSS custom properties for the full color palette (primary `#145b94`, primary-dark `#1e7fc7`, plus success/warning/danger/info/violet/pink/dark/light/gray), the Rubik font (self-hosted via `@fontsource-variable/rubik`), and dark/light gradient backgrounds. All theming goes through these tokens — do not hard-code hex values.
 
@@ -72,11 +72,11 @@ Components follow Brad Frost's Atomic Design methodology. The five levels map to
 
 **Icons**: Each icon is its own Astro component in `src/components/atoms/icons/` (e.g., `GithubIcon.astro`). All icons accept `size?: number | string` and `class?: string` props. Do not inline raw SVGs — add a new component file instead. Import via `@atoms/icons/IconName.astro`.
 
-**Content Collections** (`src/content/config.ts`): Defines a `projects` collection (type `data`, JSON files in `src/content/projects/`). Schema: `title`, `description`, `tags`, `url?`, `repo?`, `image?`, `featured`, `date`. Add project entries as `src/content/projects/<slug>.json`.
+**Content Collections** (`src/content.config.ts`): Defines a `projects` collection (type `data`, JSON files in `src/content/projects/`). Schema: `title`, `description`, `tags`, `url?`, `repo?`, `image?`, `featured`, `date`. Add project entries as `src/content/projects/<slug>.json`.
 
 **Sitemap**: `@astrojs/sitemap` integration generates `sitemap-index.xml` on every build using `site` from `astro.config.mjs`.
 
-**Planned pages** (nav links exist, pages are stubs): `Sobre mí`, `Proyectos`, `Contacto`. The home page (`src/pages/index.astro`) currently shows a "Próximamente" placeholder.
+**Planned pages** (nav links exist, pages are stubs): `Sobre mí`, `Contacto`. The home page (`src/pages/index.astro`) currently shows a "Próximamente" placeholder. `Proyectos` (`src/pages/proyectos.astro`) is implemented and renders project cards from the `projects` content collection.
 
 ## Conventions
 

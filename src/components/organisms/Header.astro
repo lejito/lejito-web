@@ -115,34 +115,46 @@ const currentPath = Astro.url.pathname;
 </div>
 
 <script>
+  let controller = new AbortController();
+
   function setupMobileMenu() {
-    const mobileMenuButton = document.getElementById(
-      "mobile-menu-button",
-    ) as HTMLButtonElement | null;
+    controller.abort();
+    controller = new AbortController();
+    const signal = controller.signal;
+
+    const mobileMenuButton = document.getElementById("mobile-menu-button");
     const mobileMenu = document.getElementById("mobile-menu");
 
-    function setMenuOpen(open: boolean) {
+    function setMenuOpen(open) {
       mobileMenu?.classList.toggle("-translate-y-full", !open);
       mobileMenuButton?.setAttribute("aria-expanded", String(open));
     }
 
-    mobileMenuButton?.addEventListener("click", () => {
-      const isOpen = !mobileMenu?.classList.contains("-translate-y-full");
-      setMenuOpen(!isOpen);
-    });
+    mobileMenuButton?.addEventListener(
+      "click",
+      () => {
+        const isOpen = !mobileMenu?.classList.contains("-translate-y-full");
+        setMenuOpen(!isOpen);
+      },
+      { signal },
+    );
 
-    document.addEventListener("click", (e) => {
-      if (
-        !mobileMenu?.contains(e.target as Node) &&
-        !mobileMenuButton?.contains(e.target as Node) &&
-        !mobileMenu?.classList.contains("-translate-y-full")
-      ) {
-        setMenuOpen(false);
-      }
-    });
+    document.addEventListener(
+      "click",
+      (e) => {
+        if (
+          !mobileMenu?.contains(e.target) &&
+          !mobileMenuButton?.contains(e.target) &&
+          !mobileMenu?.classList.contains("-translate-y-full")
+        ) {
+          setMenuOpen(false);
+        }
+      },
+      { signal },
+    );
 
     mobileMenu?.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => setMenuOpen(false));
+      link.addEventListener("click", () => setMenuOpen(false), { signal });
     });
   }
 
