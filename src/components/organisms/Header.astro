@@ -125,7 +125,7 @@ const currentPath = Astro.url.pathname;
     const mobileMenuButton = document.getElementById("mobile-menu-button");
     const mobileMenu = document.getElementById("mobile-menu");
 
-    function setMenuOpen(open) {
+    function setMenuOpen(open: boolean) {
       mobileMenu?.classList.toggle("-translate-y-full", !open);
       mobileMenuButton?.setAttribute("aria-expanded", String(open));
     }
@@ -143,8 +143,8 @@ const currentPath = Astro.url.pathname;
       "click",
       (e) => {
         if (
-          !mobileMenu?.contains(e.target) &&
-          !mobileMenuButton?.contains(e.target) &&
+          !mobileMenu?.contains(e.target as Node) &&
+          !mobileMenuButton?.contains(e.target as Node) &&
           !mobileMenu?.classList.contains("-translate-y-full")
         ) {
           setMenuOpen(false);
