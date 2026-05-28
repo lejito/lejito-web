@@ -43,7 +43,7 @@ jobs:
   deploy-preview:
     name: Deploy Preview
     needs: build
-    if: github.ref == 'refs/heads/develop' || github.base_ref == 'develop'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     permissions:
       deployments: write
@@ -89,7 +89,7 @@ jobs:
   deploy-production:
     name: Deploy Production
     needs: build
-    if: github.ref == 'refs/heads/main' || github.base_ref == 'main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       deployments: write
