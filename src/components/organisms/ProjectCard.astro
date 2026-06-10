@@ -15,8 +15,8 @@ const { title, description, tags, url, repo, featured } = Astro.props;
 <article
   class:list={[
     "flex flex-col gap-4 rounded-xl border p-6 transition",
-    "border-gray-200 dark:border-gray-700",
-    "bg-white dark:bg-gray-800/60",
+    "border-outline",
+    "bg-surface dark:bg-surface/60",
     featured && "ring-2 ring-custom-primary/40",
   ]}
 >
@@ -31,14 +31,14 @@ const { title, description, tags, url, repo, featured } = Astro.props;
     }
   </div>
 
-  <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+  <p class="text-sm text-secondary leading-relaxed">
     {description}
   </p>
 
   <div class="flex flex-wrap gap-2">
     {
       tags.map((tag) => (
-        <span class="rounded-md bg-gray-100 dark:bg-gray-700 px-2 py-0.5 text-xs font-medium text-gray-700 dark:text-gray-300">
+        <span class="rounded-md bg-surface-raised px-2 py-0.5 text-xs font-medium text-emphasis">
           {tag}
         </span>
       ))
@@ -63,7 +63,7 @@ const { title, description, tags, url, repo, featured } = Astro.props;
             href={repo}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:opacity-70 transition-opacity"
+            class="text-sm font-medium text-muted hover:opacity-70 transition-opacity"
           >
             Repositorio →
           </a>

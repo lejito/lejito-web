@@ -102,13 +102,30 @@ const canonicalURL = Astro.site
 
     <ClientRouter />
   </head>
-  <body class="overflow-x-hidden antialiased">
-    <Header />
+  <body class="antialiased">
+    <div id="page-content">
+      <!-- Header vive DENTRO del contenedor de scroll para que el contenido pase
+           por detrás (sticky) y su backdrop-filter difumine lo que hay debajo. -->
+      <Header />
 
-    <main class="mt-20 p-8">
-      <slot />
-    </main>
+      <main class="p-8">
+        <slot />
+      </main>
 
-    <Footer />
+      <Footer />
+    </div>
+
+    <script>
+      function setupHeaderScroll() {
+        const pc = document.getElementById("page-content");
+        if (!pc) return;
+        const onScroll = () => {
+          document.body.classList.toggle("is-scrolled", pc.scrollTop > 0);
+        };
+        onScroll();
+        pc.addEventListener("scroll", onScroll, { passive: true });
+      }
+      document.addEventListener("astro:page-load", setupHeaderScroll);
+    </script>
   </body>
 </html>

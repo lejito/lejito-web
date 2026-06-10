@@ -2,7 +2,8 @@ export const SITE = {
   owner: "Alejandro Cordoba Rios",
   nick: "lejito",
   birthDate: new Date("2003-05-27"),
-  url: "https://lejito.dev",
+  url: "https://lejito.com",
+  repo: "https://github.com/lejito/lejito-web",
   locale: "es_ES",
   defaultKeywords:
     "alejandro cordoba rios, lejito, portafolio, desarrollo web, ingeniero de sistemas, nodejs, react, nextjs, angular, astro, medellin, colombia",

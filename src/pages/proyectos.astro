@@ -12,13 +12,13 @@ const sorted = projects.sort(
 <Layout title="Proyectos">
   <section class="max-w-4xl mx-auto">
     <h2 class="text-3xl font-bold mb-2 transition">Proyectos</h2>
-    <p class="text-gray-500 dark:text-gray-400 mb-10 transition">
+    <p class="text-muted mb-10 transition">
       Cosas que he construido.
     </p>
 
     {
       sorted.length === 0 ? (
-        <p class="text-center text-gray-400 py-20">Próximamente...</p>
+        <p class="text-center text-muted py-20">Próximamente...</p>
       ) : (
         <div class="grid gap-6 sm:grid-cols-2">
           {sorted.map((project) => (

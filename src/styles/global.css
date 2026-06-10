@@ -23,23 +23,132 @@
   --color-custom-primary-dark: #1e7fc7;
 }
 
+@theme inline {
+  /* Semantic color tokens — flip automatically in dark mode */
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-divider: var(--divider);
+  --color-outline: var(--outline);
+  --color-muted: var(--muted);
+  --color-secondary: var(--secondary);
+  --color-emphasis: var(--emphasis);
+
+  /* Transition tokens — use duration-default / ease-default in components */
+  --duration-default: var(--default-transition-duration);
+  --ease-default: var(--default-transition-timing);
+}
+
+html {
+  overflow: hidden;
+  height: 100%;
+}
+
 body {
   font-family: "Rubik", sans-serif;
   margin: 0;
   padding: 0;
   position: relative;
+  color: var(--body-color);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
 }
 
 :root {
   --default-transition-duration: 300ms;
   --default-transition-timing: ease-in-out;
+
+  /* Semantic color tokens (light mode defaults) */
+  --surface: #ffffff;
+  --surface-raised: #f3f4f6;
+  --divider: #d1d5db;
+  --outline: #e5e7eb;
+  --muted: #6b7280;
+  --secondary: #4b5563;
+  --emphasis: #374151;
+  --body-color: #0c0910;
+
+  /* Background gradient stops */
+  --gradient-light-start: #b2cfe5;
+  --gradient-light-mid: #ffffff;
+  --gradient-light-end: #efc9c7;
+  --gradient-dark-start: #212b3b;
+  --gradient-dark-mid: #1a212f;
+  --gradient-dark-end: #231717;
+
+  /* Gradientes de página compuestos — reutilizados por el body y el header
+     (así el header puede usar el MISMO fondo y no verse distinto al body). */
+  --page-bg-light: radial-gradient(
+    ellipse at left bottom,
+    var(--gradient-light-start) 0%,
+    var(--gradient-light-mid) 20%,
+    var(--gradient-light-mid) 50%,
+    var(--gradient-light-mid) 50%,
+    var(--gradient-light-end) 100%
+  );
+  --page-bg-dark: radial-gradient(
+    ellipse at left bottom,
+    var(--gradient-dark-start) 0%,
+    var(--gradient-dark-mid) 20%,
+    var(--gradient-dark-mid) 50%,
+    var(--gradient-dark-mid) 70%,
+    var(--gradient-dark-end) 100%
+  );
+
+  /* Theme toggle gradients */
+  --toggle-gradient-light: linear-gradient(to right, rgb(253 224 71), rgb(251 146 60));
+  --toggle-gradient-dark: linear-gradient(to right, rgb(96 165 250), rgb(99 102 241));
 }
 
-/* Apply default transition timing only to elements that opt-in via Tailwind's transition classes */
+.dark {
+  --surface: #1f2937;
+  --surface-raised: #374151;
+  --divider: #374151;
+  --outline: #374151;
+  --muted: #9ca3af;
+  --secondary: #9ca3af;
+  --emphasis: #e5e7eb;
+  --body-color: #e0e0e0;
+}
+
+/* Force the default duration/timing on Tailwind's `transition-*` utilities
+   (overrides Tailwind's 150ms default). Same specificity as the utility class. */
 [class*="transition"],
 [class^="transition"] {
   transition-duration: var(--default-transition-duration);
   transition-timing-function: var(--default-transition-timing);
+}
+
+/* Generalized theme-color transition for EVERY element, so titles, logos,
+   footer text, header name, etc. cambian de color en sincronía al cambiar de
+   tema. Es universal (especificidad 0): cualquier elemento con su propia
+   transición explícita (Tailwind transition-*, #nav-pill, #site-header, etc.)
+   la sobrescribe sin necesidad de tocarlo.
+
+   Solo `color`/`background-color`/`border-color`. NO `fill`/`stroke`: los iconos
+   SVG usan `fill: currentColor`, así que siguen al `color` animado por sí solos;
+   transicionar `fill` además provoca un parpadeo (doble animación con
+   currentColor). Tampoco se incluyen pseudo-elementos (causan flashes). */
+/* En @layer base para NO pisar las utilidades de Tailwind (transition-transform,
+   transition-opacity, etc.), que viven en @layer utilities y deben ganar. Si
+   fueran reglas sin capa, lo sin-capa gana sobre cualquier capa y rompería esas
+   transiciones (p.ej. la bola y los iconos del theme switch). */
+@layer base {
+  * {
+    transition-property: color, background-color, border-color;
+    transition-duration: var(--default-transition-duration);
+    transition-timing-function: var(--default-transition-timing);
+  }
+
+  /* Los <a> (y su contenido) parpadean al FINAL de la transición de color:
+     Chrome repinta el estado de enlace al terminar la animación. Se excluye
+     `color` de su transición → el color cambia instantáneo, sin parpadeo. El
+     color sigue siendo el heredado (correcto), solo no se anima. */
+  a,
+  a * {
+    transition-property: background-color, border-color;
+  }
 }
 
 body::before {
@@ -50,14 +159,7 @@ body::before {
   width: 100%;
   height: 100%;
   z-index: -1;
-  background: radial-gradient(
-    ellipse at left bottom,
-    #b2cfe5 0%,
-    #ffffff 20%,
-    #ffffff 50%,
-    #ffffff 50%,
-    #efc9c7 100%
-  );
+  background: var(--page-bg-light);
   opacity: 1;
   transition: opacity var(--default-transition-duration)
     var(--default-transition-timing);
@@ -71,21 +173,10 @@ body::after {
   width: 100%;
   height: 100%;
   z-index: -1;
-  background: radial-gradient(
-    ellipse at left bottom,
-    #212b3b 0%,
-    #1a212f 20%,
-    #1a212f 50%,
-    #1a212f 70%,
-    #231717 100%
-  );
+  background: var(--page-bg-dark);
   opacity: 0;
   transition: opacity var(--default-transition-duration)
     var(--default-transition-timing);
-}
-
-.dark body {
-  color: #e0e0e0;
 }
 
 .dark body::before {
@@ -94,4 +185,90 @@ body::after {
 
 .dark body::after {
   opacity: 1;
+}
+
+/* ── Header (estilo Tabler) ──
+   El ::before pinta EL MISMO gradiente del body, fijo al viewport y alineado
+   (100vw×100vh, anclado arriba-izquierda) → reproduce exactamente la franja
+   superior del fondo. Está SIEMPRE visible: en reposo es invisible (sin costura
+   con el body, parece transparente); al scrollear ya está opaco tapando el
+   contenido que pasa por detrás. Sin fade ni toggle de fondo → sin parpadeo a
+   ninguna velocidad. Solo la sombra se anima al scrollear (.is-scrolled). ── */
+/* Dos capas claro/oscuro que cruzan-funden por opacity al cambiar de tema —
+   igual que body::before/::after — para que el header cambie de color en
+   sincronía con el resto (no de golpe). Ambas: fijas al viewport (NO
+   background-attachment:fixed, que parpadea en scroll rápido), dimensionadas
+   100vw×100vh y ancladas arriba-izquierda → reproducen la franja superior del
+   fondo. opacity 0.8 = translúcidas, para que el backdrop-filter del header
+   deje ver el contenido difuminado por detrás manteniendo el color del body. */
+#site-header::before,
+#site-header::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5rem; /* = alto del header (h-20) */
+  z-index: -1; /* detrás del contenido del header (logo/nav) */
+  background-size: 100vw 100vh;
+  background-position: left top;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  transition: opacity var(--default-transition-duration) var(--default-transition-timing);
+}
+
+#site-header::before {
+  background-image: var(--page-bg-light);
+  opacity: 0.8;
+}
+
+#site-header::after {
+  background-image: var(--page-bg-dark);
+  opacity: 0;
+}
+
+.dark #site-header::before {
+  opacity: 0;
+}
+
+.dark #site-header::after {
+  opacity: 0.8;
+}
+
+#site-header {
+  /* El blur vive en el header mismo: difumina el contenido que pasa por detrás
+     (header sticky sobre #page-content). El ::before translúcido lo deja ver. */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: box-shadow var(--default-transition-duration) var(--default-transition-timing);
+}
+
+body.is-scrolled #site-header {
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.08);
+}
+
+/* ── Scroll container + scrollbar ── */
+#page-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-custom-primary) 40%, transparent) transparent;
+}
+
+#page-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+#page-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#page-content::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-custom-primary) 40%, transparent);
+  border-radius: 9999px;
+}
+
+#page-content::-webkit-scrollbar-thumb:hover {
+  background: var(--color-custom-primary);
 }
