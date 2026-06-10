@@ -37,7 +37,8 @@ const currentPath = Astro.url.pathname;
       class="absolute rounded-full bg-custom-primary pointer-events-none"
       style="opacity:0"
       aria-hidden="true"
-    ></div>
+    >
+    </div>
     {
       NAV_LINKS.map(({ href, label }) => {
         const isActive = currentPath === href;
@@ -93,7 +94,8 @@ const currentPath = Astro.url.pathname;
   id="mobile-backdrop"
   class="fixed inset-0 z-40 bg-black/40 lg:hidden"
   aria-hidden="true"
-></div>
+>
+</div>
 
 <!-- Mobile side drawer -->
 <aside
@@ -102,7 +104,9 @@ const currentPath = Astro.url.pathname;
   aria-hidden="true"
 >
   <!-- Drawer header — solo botón de cierre, alineado con el header principal -->
-  <div class="flex items-center justify-end h-20 px-5 border-b border-divider shrink-0">
+  <div
+    class="flex items-center justify-end h-20 px-5 border-b border-divider shrink-0"
+  >
     <button
       id="mobile-close-button"
       class="p-2 rounded-full hover:bg-surface-raised transition-colors"
@@ -139,7 +143,9 @@ const currentPath = Astro.url.pathname;
   <div class="flex-1"></div>
 
   <!-- Bottom: social links + theme switch -->
-  <div class="px-5 py-6 border-t border-divider flex items-center justify-between">
+  <div
+    class="px-5 py-6 border-t border-divider flex items-center justify-between"
+  >
     <div class="flex items-center gap-5">
       {
         SOCIAL_LINKS.map(({ href, label, icon }) => {
@@ -185,7 +191,8 @@ const currentPath = Astro.url.pathname;
   #mobile-backdrop {
     opacity: 0;
     pointer-events: none;
-    transition: opacity var(--default-transition-duration) var(--default-transition-timing);
+    transition: opacity var(--default-transition-duration)
+      var(--default-transition-timing);
   }
 
   #mobile-backdrop.is-open {
@@ -210,7 +217,9 @@ const currentPath = Astro.url.pathname;
     const signal = controller.signal;
 
     const mobileMenuButton = document.getElementById("mobile-menu-button");
-    const mobileMenu = document.getElementById("mobile-menu") as HTMLElement | null;
+    const mobileMenu = document.getElementById(
+      "mobile-menu",
+    ) as HTMLElement | null;
     const mobileBackdrop = document.getElementById("mobile-backdrop");
     const mobileCloseButton = document.getElementById("mobile-close-button");
 
@@ -219,29 +228,29 @@ const currentPath = Astro.url.pathname;
       mobileMenu?.setAttribute("aria-hidden", String(!open));
       mobileBackdrop?.classList.toggle("is-open", open);
       mobileMenuButton?.setAttribute("aria-expanded", String(open));
-      mobileMenuButton?.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
+      mobileMenuButton?.setAttribute(
+        "aria-label",
+        open ? "Cerrar menú" : "Abrir menú",
+      );
     }
 
     mobileMenuButton?.addEventListener(
       "click",
       () => {
-        const isOpen = mobileMenuButton.getAttribute("aria-expanded") === "true";
+        const isOpen =
+          mobileMenuButton.getAttribute("aria-expanded") === "true";
         setMenuOpen(!isOpen);
       },
       { signal },
     );
 
-    mobileCloseButton?.addEventListener(
-      "click",
-      () => setMenuOpen(false),
-      { signal },
-    );
+    mobileCloseButton?.addEventListener("click", () => setMenuOpen(false), {
+      signal,
+    });
 
-    mobileBackdrop?.addEventListener(
-      "click",
-      () => setMenuOpen(false),
-      { signal },
-    );
+    mobileBackdrop?.addEventListener("click", () => setMenuOpen(false), {
+      signal,
+    });
 
     // Restaurar estado abierto tras navegación (sin animación de slide)
     if (sessionStorage.getItem("mobile-menu-open")) {
@@ -301,9 +310,7 @@ const currentPath = Astro.url.pathname;
         sessionStorage.removeItem("nav-prev-index");
         const prevIndex = prevStr !== null ? parseInt(prevStr, 10) : -1;
         const prevLink =
-          prevIndex >= 0 && prevIndex !== activeIndex
-            ? links[prevIndex]
-            : null;
+          prevIndex >= 0 && prevIndex !== activeIndex ? links[prevIndex] : null;
 
         if (prevLink) {
           positionPill(prevLink, true);

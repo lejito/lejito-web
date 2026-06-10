@@ -97,8 +97,16 @@ body {
   );
 
   /* Theme toggle gradients */
-  --toggle-gradient-light: linear-gradient(to right, rgb(253 224 71), rgb(251 146 60));
-  --toggle-gradient-dark: linear-gradient(to right, rgb(96 165 250), rgb(99 102 241));
+  --toggle-gradient-light: linear-gradient(
+    to right,
+    rgb(253 224 71),
+    rgb(251 146 60)
+  );
+  --toggle-gradient-dark: linear-gradient(
+    to right,
+    rgb(96 165 250),
+    rgb(99 102 241)
+  );
 }
 
 .dark {
@@ -214,7 +222,8 @@ body::after {
   background-position: left top;
   background-repeat: no-repeat;
   pointer-events: none;
-  transition: opacity var(--default-transition-duration) var(--default-transition-timing);
+  transition: opacity var(--default-transition-duration)
+    var(--default-transition-timing);
 }
 
 #site-header::before {
@@ -240,7 +249,8 @@ body::after {
      (header sticky sobre #page-content). El ::before translúcido lo deja ver. */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  transition: box-shadow var(--default-transition-duration) var(--default-transition-timing);
+  transition: box-shadow var(--default-transition-duration)
+    var(--default-transition-timing);
 }
 
 body.is-scrolled #site-header {
@@ -253,7 +263,12 @@ body.is-scrolled #site-header {
   min-height: 0;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: color-mix(in srgb, var(--color-custom-primary) 40%, transparent) transparent;
+  scrollbar-color: color-mix(
+      in srgb,
+      var(--color-custom-primary) 40%,
+      transparent
+    )
+    transparent;
 }
 
 #page-content::-webkit-scrollbar {
