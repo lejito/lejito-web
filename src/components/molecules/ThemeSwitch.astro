@@ -11,10 +11,10 @@ import MoonIcon from "@atoms/icons/MoonIcon.astro";
   <div
     class="icon-container flex items-center justify-center w-8 h-8 p-1 bg-white rounded-full shadow-md transition-transform"
   >
-    <div class="sun-icon absolute transition-opacity text-gray-800">
+    <div class="sun-icon absolute transition-opacity text-custom-dark">
       <SunIcon />
     </div>
-    <div class="moon-icon absolute transition-opacity text-gray-800">
+    <div class="moon-icon absolute transition-opacity text-custom-dark">
       <MoonIcon />
     </div>
   </div>
@@ -30,7 +30,7 @@ import MoonIcon from "@atoms/icons/MoonIcon.astro";
     position: absolute;
     inset: 0;
     border-radius: 9999px;
-    background: linear-gradient(to right, rgb(253 224 71), rgb(251 146 60));
+    background: var(--toggle-gradient-light);
     opacity: 1;
     transition: opacity var(--default-transition-duration)
       var(--default-transition-timing);
@@ -41,7 +41,7 @@ import MoonIcon from "@atoms/icons/MoonIcon.astro";
     position: absolute;
     inset: 0;
     border-radius: 9999px;
-    background: linear-gradient(to right, rgb(96 165 250), rgb(99 102 241));
+    background: var(--toggle-gradient-dark);
     opacity: 0;
     transition: opacity var(--default-transition-duration)
       var(--default-transition-timing);
