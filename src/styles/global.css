@@ -228,7 +228,7 @@ body::after {
 
 #site-header::before {
   background-image: var(--page-bg-light);
-  opacity: 0.8;
+  opacity: 1;
 }
 
 #site-header::after {
@@ -241,7 +241,7 @@ body::after {
 }
 
 .dark #site-header::after {
-  opacity: 0.8;
+  opacity: 1;
 }
 
 #site-header {
