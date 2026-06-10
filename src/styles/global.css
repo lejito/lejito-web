@@ -207,7 +207,7 @@ body::after {
    sincronía con el resto (no de golpe). Ambas: fijas al viewport (NO
    background-attachment:fixed, que parpadea en scroll rápido), dimensionadas
    100vw×100vh y ancladas arriba-izquierda → reproducen la franja superior del
-   fondo. opacity 0.8 = translúcidas, para que el backdrop-filter del header
+   fondo. opacity 1 = translúcidas, para que el backdrop-filter del header
    deje ver el contenido difuminado por detrás manteniendo el color del body. */
 #site-header::before,
 #site-header::after {
