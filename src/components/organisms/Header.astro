@@ -102,6 +102,7 @@ const currentPath = Astro.url.pathname;
   id="mobile-menu"
   class="fixed top-0 right-0 h-dvh w-[min(320px,88vw)] z-50 flex flex-col bg-surface border-l border-divider shadow-2xl lg:hidden"
   aria-hidden="true"
+  inert
 >
   <!-- Drawer header — solo botón de cierre, alineado con el header principal -->
   <div
@@ -226,6 +227,7 @@ const currentPath = Astro.url.pathname;
     function setMenuOpen(open: boolean) {
       mobileMenu?.classList.toggle("is-open", open);
       mobileMenu?.setAttribute("aria-hidden", String(!open));
+      if (mobileMenu) mobileMenu.inert = !open;
       mobileBackdrop?.classList.toggle("is-open", open);
       mobileMenuButton?.setAttribute("aria-expanded", String(open));
       mobileMenuButton?.setAttribute(
@@ -257,13 +259,12 @@ const currentPath = Astro.url.pathname;
       sessionStorage.removeItem("mobile-menu-open");
       if (mobileMenu) {
         mobileMenu.style.transitionProperty = "none";
-        mobileMenu.classList.add("is-open");
+        setMenuOpen(true);
         mobileMenu.getBoundingClientRect();
         mobileMenu.style.transitionProperty = "";
+      } else {
+        setMenuOpen(true);
       }
-      mobileBackdrop?.classList.add("is-open");
-      mobileMenuButton?.setAttribute("aria-expanded", "true");
-      mobileMenuButton?.setAttribute("aria-label", "Cerrar menú");
     }
 
     // Al navegar, mantener el menú abierto

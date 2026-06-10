@@ -116,14 +116,20 @@ const canonicalURL = Astro.site
     </div>
 
     <script>
+      let scrollController = new AbortController();
       function setupHeaderScroll() {
+        scrollController.abort();
+        scrollController = new AbortController();
         const pc = document.getElementById("page-content");
         if (!pc) return;
         const onScroll = () => {
           document.body.classList.toggle("is-scrolled", pc.scrollTop > 0);
         };
         onScroll();
-        pc.addEventListener("scroll", onScroll, { passive: true });
+        pc.addEventListener("scroll", onScroll, {
+          passive: true,
+          signal: scrollController.signal,
+        });
       }
       document.addEventListener("astro:page-load", setupHeaderScroll);
     </script>
