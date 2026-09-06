@@ -16,7 +16,7 @@ There are no tests.
 
 ## Architecture
 
-**Stack**: Astro 6 + Tailwind CSS 4 (via `@tailwindcss/vite`) + TypeScript. No framework (React/Vue/Svelte) — all components are `.astro` files.
+**Stack**: Astro 7 + Tailwind CSS 4 (via `@tailwindcss/vite`) + TypeScript. No framework (React/Vue/Svelte) — all components are `.astro` files.
 
 **Path aliases** (configured in `tsconfig.json`):
 
@@ -81,6 +81,8 @@ Components follow Brad Frost's Atomic Design methodology. The five levels map to
 ## Conventions
 
 - Component filenames: PascalCase, `.astro` extension.
+- HTML must be strictly valid: the Astro 7 Rust compiler errors on unclosed tags and no longer auto-corrects invalid nesting (e.g. `<div>` inside `<p>`). Void elements (`<br>`, `<img>`) need no closing tag.
+- Whitespace follows JSX rules (`compressHTML` defaults to `'jsx'` in Astro 7): newlines and spaces around elements are stripped. Space adjacent inline elements with flex `gap` — as `Footer`, `Logo` and `Header` already do — or insert `{" "}` explicitly.
 - Tailwind utility-first; no inline `style` attributes. Use dark-mode variants (`dark:`) as needed.
 - TypeScript: explicit types, no `any`.
 - Social links open in new tabs with `rel="noopener noreferrer"`.

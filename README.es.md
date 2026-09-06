@@ -15,7 +15,7 @@ Está destinado a demostrar mis habilidades en desarrollo web, tecnologías en l
 
 ## 🛠️ Stack tecnológico
 
-- **[Astro 6](https://astro.build/)** — generador de sitios estáticos con View Transitions
+- **[Astro 7](https://astro.build/)** — generador de sitios estáticos con View Transitions
 - **[Tailwind CSS 4](https://tailwindcss.com/)** — estilos utility-first via `@tailwindcss/vite`
 - **TypeScript** — tipado estricto en todo el proyecto
 - **Fuente variable self-hosted** — Rubik via `@fontsource-variable/rubik`
